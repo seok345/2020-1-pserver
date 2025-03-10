@@ -1,14 +1,15 @@
 import joblib
 import numpy as np
 import pandas as pd
+from pydantic import BaseModel
+
 from sklearn.ensemble import RandomForestClassifier
 
-class IrisSpecies():
+class IrisSpecies(BaseModel):
     sepal_length: float
     sepal_width: float
     petal_length: float
     petal_width: float
-
 
 class IrisMachineLearning:
     def __init__(self):
@@ -21,15 +22,15 @@ class IrisMachineLearning:
             joblib.dump(self.model_rfc, self.rfc_fname)
         return
 
-    def rfc_train(self):
+    def rfc_train(self ):
         X = self.iris_df.drop('species', axis=1)
         y = self.iris_df['species']
         rfc = RandomForestClassifier()
-        model = rfc.fit(X,y)
+        model = rfc.fit(X, y)
         return model
 
-    def predict_species(self, sepal_length, sepal_width, petal_length,petal_width):
-        X_new = np.array([[sepal_length,sepal_width, petal_length, petal_width]])
+    def predict_species(self, sepal_length, sepal_width, petal_length, petal_width):
+        X_new = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
         prediction = self.model_rfc.predict(X_new)
         print(prediction)
         return prediction[0]
