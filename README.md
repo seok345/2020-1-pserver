@@ -6,4 +6,4 @@
 <img src="irispicture.png">
 
 ## 동작화면 예시 ##
-<img src="capture.png">
+<img src="capture.png"> 
