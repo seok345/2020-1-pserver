@@ -1,23 +1,32 @@
 function Send(){
 
-   alert("자바스크립트 Send 함수 불러짐")
-   var data = {
-       "sepal_length":8,
-       "sepal_width":1,
-       "petal_length":8,
-       "petal_width":1,
-   }
-   $.ajax({
-    type: "GET",
-    url: "http://localhost:8000/predict",
+sl = document.getElementById("sl")
+sw = document.getElementById("sw")
+pl = document.getElementById("pl")
+pw = document.getElementById("pw")
+
+  var data = {
+    'sepal_length': sl.value,
+        'sepal_width': sw.value,
+        'petal_length': pl.value,
+        'petal_width': pw.value,
+  }
+
+  $.ajax({
+    type: "POST",
+    url: 'http://localhost:8000/predict',
     headers:{
-        "Accept": "application/json",
+        "Accept" : "application/json",
         "Content-Type": "application/json",
-    },
-    data: JSON.stringify(data)
-    }).done(function(response){
-        alert(response)
-    }).fail(function(response){
-        alert("fail" + response)
-    }).always()
-   }
+        },
+    data: JSON.stringify(data),
+  }).done(function(response) {
+        txtOut.value = response.prediction
+        console.log(response)
+        txtOut.value = response.prediction + " 일 확률:" + response.probability
+
+  }).fail(function(response) {
+    alert("fail " + response)
+  }).always()
+}
+
